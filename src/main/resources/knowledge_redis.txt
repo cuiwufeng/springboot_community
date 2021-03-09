@@ -1,0 +1,89 @@
+C:\Users\cwf>redis-cli
+127.0.0.1:6379> set test:count 1
+OK
+127.0.0.1:6379> get test:count
+"1"
+127.0.0.1:6379> incr test:count
+(integer) 2
+127.0.0.1:6379> decr test:count
+(integer) 1
+127.0.0.1:6379> hset test:user id 1
+(integer) 1
+127.0.0.1:6379> hset test:user username zhangsan
+(integer) 1
+127.0.0.1:6379> hget test:user
+(error) ERR wrong number of arguments for 'hget' command
+127.0.0.1:6379> hget test:user id
+"1"
+127.0.0.1:6379> hget test:user username
+"zhangsan"
+127.0.0.1:6379> lpush test:ids 101 102 103
+(integer) 3
+127.0.0.1:6379> llen test:ids
+(integer) 3
+127.0.0.1:6379> lindex test:ids 0
+"103"
+127.0.0.1:6379> lindex test:ids 2
+"101"
+127.0.0.1:6379> lrange test:ids 0 2
+1) "103"
+2) "102"
+3) "101"
+127.0.0.1:6379> rpop test:ids
+"101"
+127.0.0.1:6379> rpop test:ids
+"102"
+127.0.0.1:6379> sadd test:teachers aaa bbb ccc ddd eee
+(integer) 5
+127.0.0.1:6379> scard test:teachers
+(integer) 5
+127.0.0.1:6379> spop test:teacher
+(nil)
+127.0.0.1:6379> spop test:teachers
+"eee"
+127.0.0.1:6379> spop test:teachers
+"ddd"
+127.0.0.1:6379> smembers test:teachers
+1) "ccc"
+2) "aaa"
+3) "bbb"
+127.0.0.1:6379> zadd test:students 10 aaa 20 bbb 30 ccc 40 ddd 50 eee
+(integer) 5
+127.0.0.1:6379> zcard test:students
+(integer) 5
+127.0.0.1:6379> zscore test:students ccc
+"30"
+127.0.0.1:6379> zrank test:students ccc
+(integer) 2
+127.0.0.1:6379> zrange test:students 0 2
+1) "aaa"
+2) "bbb"
+3) "ccc"
+127.0.0.1:6379> keys *
+1) "test:count"
+2) "test:ids"
+3) "test:user"
+4) "test:teachers"
+5) "test:students"
+127.0.0.1:6379> keys test*
+1) "test:count"
+2) "test:ids"
+3) "test:user"
+4) "test:teachers"
+5) "test:students"
+127.0.0.1:6379> type test:user
+hash
+127.0.0.1:6379> exists test:user
+(integer) 1
+127.0.0.1:6379> delete test:user
+(error) ERR unknown command 'delete'
+127.0.0.1:6379> del test:user
+(integer) 1
+127.0.0.1:6379> exists test:user
+(integer) 0
+127.0.0.1:6379> expire test:students 10
+(integer) 1
+127.0.0.1:6379> keys *
+1) "test:count"
+2) "test:ids"
+3) "test:teachers"

@@ -103,6 +103,7 @@ public class DiscussPostController implements CommunityConstant {
                         replyVoList.add(replyVo);
                     }
                 }
+
                 commentVo.put("replys", replyVoList);
 
                 // 回复数量
